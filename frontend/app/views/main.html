@@ -1,0 +1,57 @@
+<div class="alert alert-success" role="alert">
+  <h3>Party</h3>
+
+  <form class="form-inline" role="form" ng-submit="addPerson(newPerson)">
+    <div class="form-group">
+      <label for="person">Neue Person</label>
+      <input type="text" class="form-control" id="person" minlength="3" required="required" ng-model="newPerson">
+    </div>
+    <button class="btn btn-default" type="submit">Hinzufügen</button>
+  </form>
+
+</div>
+
+
+
+<hr />
+
+<div class="panel panel-default" data-ng-repeat="person in purchase track by $index">
+  <!-- Default panel contents -->
+  <div class="panel-heading clearfix">
+    <h4 class="panel-title pull-left" style="padding-top: 7.5px;">{{person.name}}</h4>
+    <div class="btn-group pull-right">
+      <button class="btn btn-default btn-sm" data-ng-click="deletePerson(person.name)">## löschen</button>
+    </div>
+  </div>
+
+  <table class="table">
+    <tr>
+      <td><button ng-click="addItem(person.name)"><span class="glyphicon glyphicon-plus"></span></button></td>
+    </tr>
+    <tr data-ng-repeat="item in person.items track by $index">
+      <td><input type="text" ng-model="item.name" ng-change="editItem(person.name, item.uuid, item.name, item.price)"></td>
+      <td><input type="number" ng-model="item.price" ng-change="editItem(person.name, item.uuid, item.name, item.price)" step="0.01"></td>
+      <td><button ng-click="deleteItem(item.uuid, person.name)"><span class="glyphicon glyphicon-trash"></span></button></td>
+    </tr>
+  </table>
+</div>
+
+<!-- Einkauf -->
+<div ng-if="isLogin">
+
+  <form>
+    <input type="text" ng-model="itemName" />
+    <input type="text" ng-model="price">
+    <button data-ng-click="buy(itemName, price)">Kaufen</button>
+  </form>
+
+  <ul>
+    <li data-ng-repeat="person in purchase">
+      <p>{{person.name}}</p>
+
+      <ul>
+        <li data-ng-repeat="item in person.items">{{item.name}} {{item.price}}</li>
+      </ul>
+    </li>
+  </ul>
+</div>
