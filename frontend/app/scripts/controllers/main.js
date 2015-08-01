@@ -8,29 +8,19 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('MainCtrl', function ($scope, $log, PurchaseService) {
+  .controller('MainCtrl', function ($scope, $log, PurchaseService, SocketHandler) {
 
     $log.info('MainCtrl start');
-    var stompClient = null;
-    function connect() {
-      $log.info('Verbindung wird herstellt');
 
-      var socket = new SockJS('http://localhost:8080/purchase'); // jshint ignore:line
-      stompClient = Stomp.over(socket); // jshint ignore:line
-      stompClient.connect({}, function(frame) {
-        $log.info('Connected: ' + frame);
-
-        stompClient.subscribe('/topic/purchase', function(purchase){
-          $scope.$apply(function () {
-            $scope.purchase = JSON.parse(purchase.body);
-          });
-        });
-
-      });
-    }
-    connect();
+    var stompClient = SocketHandler;
 
     $scope.purchase = [];
+
+    $scope.$on('purchase', function (e, msg) {
+      $log.info('New Message: ' + msg);
+      $scope.purchase = msg;
+    });
+
 
     PurchaseService.getPurchase().then(
       function(purchase) {
