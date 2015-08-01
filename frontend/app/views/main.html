@@ -31,8 +31,8 @@
       <td><button ng-click="addItem(person.name)"><span class="glyphicon glyphicon-plus"></span></button></td>
     </tr>
     <tr data-ng-repeat="item in person.items track by $index">
-      <td><input type="text" ng-model="item.name" ng-change="editItem(person.name, item.uuid, item.name, item.price)"></td>
-      <td><input type="number" ng-model="item.price" ng-change="editItem(person.name, item.uuid, item.name, item.price)" step="0.01"></td>
+      <td><input type="text" ng-model="item.name" ng-change="editItem(person, item.uuid, item.name, item.price)"></td>
+      <td><input type="number" ng-model="item.price" ng-change="editItem(person, item.uuid, item.name, item.price)" step="0.01"></td>
       <td><button ng-click="deleteItem(item.uuid, person.name)"><span class="glyphicon glyphicon-trash"></span></button></td>
     </tr>
   </table>

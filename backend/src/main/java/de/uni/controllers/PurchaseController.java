@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +18,6 @@ import java.util.List;
 public class PurchaseController {
 
     private static final Logger LOG = LoggerFactory.getLogger(PurchaseController.class);
-    public static final String BUY = "/{personName}/buy";
     public static final String API_LIST_PURCHASE = "/api/listPurchase";
 
     @Autowired
@@ -59,13 +57,19 @@ public class PurchaseController {
         return new String[]{personName, uuid};
     }
 
-    @MessageMapping(BUY)
-    @SendTo("/topic/purchase")
-    public List<Person> editItem(@DestinationVariable("personName") String personName, @RequestBody Item item) throws Exception {
+    @MessageMapping("/{personName}/editItem/{itemUuid}/{itemName}/{itemPrice}")
+    @SendTo("/topic/editItem")
+    public Item editItem(@DestinationVariable("personName") String personName,
+                         @DestinationVariable("itemUuid") String itemUuid,
+                         @DestinationVariable("itemName") String itemName,
+                         @DestinationVariable("itemPrice") Double itemPrice) throws Exception {
 
-        LOG.info("Request to {}. Person={}, Item={}", BUY, personName, item);
-        purchaseService.editItem(personName, item);
-        return purchaseService.getPurchase();
+        LOG.info("Request to /{personName}/editItem/{itemUuid}/{itemName}/{itemPrice}. PersonName={}, itemUuid={}, ItemName={}, ItemPrice={}", personName, itemUuid, itemName, itemPrice);
+
+        itemPrice = itemPrice < 0 ? null : itemPrice;
+
+        Item changeItem = purchaseService.editItem(personName, itemUuid, itemName, itemPrice);
+        return changeItem;
     }
 
     @RequestMapping(API_LIST_PURCHASE)

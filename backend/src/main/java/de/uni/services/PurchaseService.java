@@ -38,18 +38,20 @@ public class PurchaseService {
         return person;
     }
 
-    public void editItem(String personName, Item item) {
+    public Item editItem(String personName, String itemUuid, String itemName, Double itemPrice) {
         LOG.info("edit item. Item={}");
 
         Person person = storage.getPerson(personName);
 
         Item foundItem = person.getItems().stream()
-                .filter(currentItem -> currentItem.getUuid().equals(item.getUuid()))
+                .filter(currentItem -> currentItem.getUuid().equals(itemUuid))
                 .findFirst()
                 .get();
 
-        foundItem.setName(item.getName());
-        foundItem.setPrice(item.getPrice());
+        foundItem.setName(itemName);
+        foundItem.setPrice(itemPrice);
+
+        return foundItem;
     }
 
     public List<Person> getPurchase() {

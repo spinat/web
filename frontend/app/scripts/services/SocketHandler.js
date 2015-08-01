@@ -44,6 +44,12 @@ angular.module('frontendApp')
         });
       });
 
+      stompClient.subscribe('/topic/editItem', function(item){
+        $rootScope.$apply(function () {
+          $rootScope.registerGroup.editItem(JSON.parse(item.body));
+        });
+      });
+
     });
 
 

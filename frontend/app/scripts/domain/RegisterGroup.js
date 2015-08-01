@@ -68,7 +68,6 @@ angular.module('frontendApp').factory('RegisterGroup', function($log, _, Person)
   RegisterGroup.prototype.deleteItem = function(item) {
     var personName = item[0];
     var itemUuid = item[1];
-    $log.info('item', item, personName, itemUuid);
 
     var self = this;
     var personIndex = self.findPersonIndexByName(personName);
@@ -76,6 +75,25 @@ angular.module('frontendApp').factory('RegisterGroup', function($log, _, Person)
     person.deleteItem(itemUuid);
   };
 
+  RegisterGroup.prototype.editItem = function(item) {
+
+    $log.info('item', item);
+
+    var self = this;
+    var personIndex = self.findPersonIndexByName(item.person.name);
+    var person = self.getPersonByIndex(personIndex);
+
+    var indexItem = person.findItemIndexByUuid(item.uuid);
+    var foundItem = person.findItemByIndex(indexItem);
+
+    foundItem.name = item.name;
+    foundItem.price = item.price;
+
+    //var self = this;
+    //var personIndex = self.findPersonIndexByName(personName);
+    //var person = self.getPersonByIndex(personIndex);
+    //person.deleteItem(itemUuid);
+  };
 
   return RegisterGroup;
 });

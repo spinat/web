@@ -1,11 +1,12 @@
 'use strict';
 
-angular.module('frontendApp').factory('Article', function() {
+angular.module('frontendApp').factory('Item', function() {
 
-  var Article = function(name, price) {
+  var Item = function(uuid, name, price) {
+    this.uuid = uuid;
     this.name = name;
     this.price = price;
   };
 
-  return Article;
+  return Item;
 });

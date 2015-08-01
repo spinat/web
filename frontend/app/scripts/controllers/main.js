@@ -35,9 +35,10 @@ angular.module('frontendApp')
       stompClient.send('/app/deleteItem/' + uuid, {}, personName);
     };
 
-    $scope.editItem = function(personName, uuid, itemName, price) {
-      var message = JSON.stringify({ 'name': itemName, 'price': price, 'uuid': uuid });
-      $log.info('Edit Item:', message);
-      stompClient.send('/app/' + personName + '/buy', {}, message);
+    $scope.editItem = function(person, itemUuid, itemName, price) {
+      var newItemName = itemName === null ? '' : itemName;
+      var newPrice = price === null ? -1 : price;
+
+      stompClient.send('/app/' + person.name + '/editItem/' + itemUuid + '/' + newItemName + '/' + newPrice, {}, {});
     };
   });

@@ -23,6 +23,11 @@ angular.module('frontendApp').factory('Person', function($log, _) {
     return index;
   };
 
+  Person.prototype.findItemByIndex = function(index) {
+    var self = this;
+    return self.items[index];
+  };
+
 
   Person.prototype.deleteItem = function(uuid) {
     var self = this;
