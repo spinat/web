@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class PurchaseController {
@@ -73,8 +74,15 @@ public class PurchaseController {
     }
 
     @RequestMapping(API_LIST_PURCHASE)
-    public List<Person> listPurchase() {
+    public Object[] listPurchase() {
         LOG.info("Request to {}.", API_LIST_PURCHASE);
-        return purchaseService.getPurchase();
+
+        List<Person> purchase = purchaseService.getPurchase();
+        List<List<Item>> items = purchase.stream()
+                .map(person -> person.getItems())
+                .collect(Collectors.toList());
+
+
+        return new Object[]{purchase, items};
     }
 }

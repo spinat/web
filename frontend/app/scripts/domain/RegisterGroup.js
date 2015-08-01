@@ -6,6 +6,34 @@ angular.module('frontendApp').factory('RegisterGroup', function($log, _, Person)
     this.persons = [];
   };
 
+  RegisterGroup.prototype.import = function(purchase) {
+    var persons = purchase[0];
+    var items = purchase[1];
+    $log.info('Import', purchase, persons, items);
+
+    var self = this;
+
+    //Add Persons
+    _.chain(persons)
+      .each(function(person) {
+        var p = new Person(person.name, person.uuid);
+        self.persons.push(p);
+      });
+
+    //Add Items
+    _.chain(items)
+      .flatten()
+      .each(function(item) {
+        var personName = item.person.name;
+        var personIndex = self.findPersonIndexByName(personName);
+        var person = self.getPersonByIndex(personIndex);
+
+        person.addItem(item);
+
+        $log.info('items:', item, personName);
+      });
+  };
+
   RegisterGroup.prototype.addPerson = function(person) {
     $log.info('Add person to party', person);
     var self = this;
@@ -88,11 +116,6 @@ angular.module('frontendApp').factory('RegisterGroup', function($log, _, Person)
 
     foundItem.name = item.name;
     foundItem.price = item.price;
-
-    //var self = this;
-    //var personIndex = self.findPersonIndexByName(personName);
-    //var person = self.getPersonByIndex(personIndex);
-    //person.deleteItem(itemUuid);
   };
 
   return RegisterGroup;

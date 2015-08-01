@@ -3,15 +3,11 @@
 angular.module('frontendApp')
   .controller('MainCtrl', function ($scope, $log, Purchase, SocketHandler, $rootScope) {
 
-    $log.info('MainCtrl start');
+    $log.info('MainCtrl start', Purchase);
 
-    $scope.purchase = $rootScope.registerGroup.persons = Purchase;
-    //
-    //$scope.$on('purchase', function (e, purchase) {
-    //  $scope.purchase = purchase;
-    //});
 
-    //$scope.registerGroup = new RegisterGroup();
+    $scope.purchase = $rootScope.registerGroup;
+    $rootScope.registerGroup.import(Purchase);
 
     var stompClient = SocketHandler;
 
