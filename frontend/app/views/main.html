@@ -1,6 +1,6 @@
 <div class="alert alert-success" role="alert">
   <h3>Party</h3>
-
+  <span>{{purchase.sumPrices()}} €</span>
   <form class="form-inline" role="form" ng-submit="addPerson(newPerson)">
     <div class="form-group">
       <label for="person">Neue Person</label>
@@ -20,6 +20,7 @@
   <div class="panel-heading clearfix">
     <h4 class="panel-title pull-left" style="padding-top: 7.5px;">{{person.name}}</h4>
     <div class="btn-group pull-right">
+      <span class="btn btn-primary btn-sm">{{person.totalSum()}} €</span>
       <button class="btn btn-default btn-sm" data-ng-click="deletePerson(person.name)">## löschen</button>
     </div>
   </div>
@@ -34,24 +35,4 @@
       <td><button ng-click="deleteItem(item.uuid, person.name)"><span class="glyphicon glyphicon-trash"></span></button></td>
     </tr>
   </table>
-</div>
-
-<!-- Einkauf -->
-<div ng-if="isLogin">
-
-  <form>
-    <input type="text" ng-model="itemName" />
-    <input type="text" ng-model="price">
-    <button data-ng-click="buy(itemName, price)">Kaufen</button>
-  </form>
-
-  <ul>
-    <li data-ng-repeat="person in purchase">
-      <p>{{person.name}}</p>
-
-      <ul>
-        <li data-ng-repeat="item in person.items">{{item.name}} {{item.price}}</li>
-      </ul>
-    </li>
-  </ul>
 </div>

@@ -75,9 +75,9 @@ angular.module('frontendApp').factory('RegisterGroup', function($log, _, Person)
     var self = this;
 
     return _.chain(self.getPersons())
-      .map(function(person) { return person.getArticles(); })
+      .map(function(person) { return person.items; })
       .flatten()
-      .reduce(function(memo, article) { return memo + article.price; }, 0)
+      .reduce(function(memo, item) { return memo + item.price; }, 0)
       .value();
   };
 
