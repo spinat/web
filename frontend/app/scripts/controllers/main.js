@@ -1,33 +1,17 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name frontendApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the frontendApp
- */
 angular.module('frontendApp')
-  .controller('MainCtrl', function ($scope, $log, PurchaseService, SocketHandler) {
+  .controller('MainCtrl', function ($scope, $log, Purchase, SocketHandler) {
 
     $log.info('MainCtrl start');
 
-    var stompClient = SocketHandler;
+    $scope.purchase = Purchase;
 
-    $scope.purchase = [];
-
-    $scope.$on('purchase', function (e, msg) {
-      $log.info('New Message: ' + msg);
-      $scope.purchase = msg;
+    $scope.$on('purchase', function (e, purchase) {
+      $scope.purchase = purchase;
     });
 
-
-    PurchaseService.getPurchase().then(
-      function(purchase) {
-        $log.info(purchase);
-        $scope.purchase = purchase;
-      }
-    );
+    var stompClient = SocketHandler;
 
     $scope.addPerson = function(personName) {
       $log.info('Add person');

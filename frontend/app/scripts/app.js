@@ -21,7 +21,12 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        resolve: {
+          Purchase: function(PurchaseService) {
+            return PurchaseService.getPurchase();
+          }
+        }
       })
       .when('/about', {
         templateUrl: 'views/about.html',
