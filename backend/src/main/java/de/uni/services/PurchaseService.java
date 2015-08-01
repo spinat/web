@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PurchaseService {
@@ -19,17 +19,23 @@ public class PurchaseService {
     @Autowired
     Storage storage;
 
-    public boolean addPerson(Person personName) {
-        List<Person> purchase = Storage.getPurchase();
+    public Person addPerson(String personName) {
+        List<Person> persons = Storage.getPurchase();
 
-        if(purchase.contains(personName)) {
-            LOG.warn("Person already exist. Person={}", personName);
-            return false;
+        Optional<Person> personOptional = persons.stream().filter(p -> p.getName().equals(personName)).findFirst();
+        if(personOptional.isPresent()) {
+            LOG.info("Person is already exist. Person={}", personOptional.get());
+            return null;
         }
 
-        purchase.add(personName);
-        LOG.info("Person is entered. Person={}", personName);
-        return true;
+        Person person = new Person();
+        person.setUuid(UUID.randomUUID().toString());
+        person.setName(personName);
+
+        persons.add(person);
+
+        LOG.info("New Person. Person={}", person);
+        return person;
     }
 
     public void editItem(String personName, Item item) {

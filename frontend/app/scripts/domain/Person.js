@@ -2,8 +2,9 @@
 
 angular.module('frontendApp').factory('Person', function($log, _) {
 
-  var Person = function(name) {
+  var Person = function(name, uuid) {
     this.name = name;
+    this.uuid = uuid;
     this.articles = [];
   };
 
@@ -11,6 +12,11 @@ angular.module('frontendApp').factory('Person', function($log, _) {
     var self = this;
     self.articles.push(Article);
     $log.info('Article added.', Article);
+  };
+
+  Person.prototype.getName = function() {
+    var self = this;
+    return self.name;
   };
 
   Person.prototype.getArticles = function() {

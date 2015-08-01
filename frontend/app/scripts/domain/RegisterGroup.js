@@ -6,11 +6,26 @@ angular.module('frontendApp').factory('RegisterGroup', function($log, _) {
     this.persons = [];
   };
 
-  RegisterGroup.prototype.addPerson = function(Person) {
+
+  RegisterGroup.prototype.addPerson = function(person) {
+    $log.info('Add person to party', person);
     var self = this;
-    self.persons.push(Person);
-    $log.info('Person add', Person);
+
+    self.persons.push(person);
   };
+
+  RegisterGroup.prototype.deletePerson = function(personName) {
+    var self = this;
+
+    var index = _.findIndex(self.persons, function(person) {
+      return person.name === personName;
+    });
+
+    self.persons.splice(index, 1);
+
+    $log.info('Delete person from party', personName, self.persons);
+  };
+
 
   RegisterGroup.prototype.getPersons = function() {
     var self = this;

@@ -7,6 +7,15 @@ public class Person {
 
     private String name;
     private List<Item> items = new ArrayList<>();
+    private String uuid;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public List<Item> getItems() {
         return items;
@@ -33,5 +42,14 @@ public class Person {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", items=" + items +
+                ", uuid='" + uuid + '\'' +
+                '}';
     }
 }

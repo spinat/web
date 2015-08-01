@@ -1,21 +1,22 @@
 'use strict';
 
 angular.module('frontendApp')
-  .controller('MainCtrl', function ($scope, $log, Purchase, SocketHandler) {
+  .controller('MainCtrl', function ($scope, $log, Purchase, SocketHandler, $rootScope) {
 
     $log.info('MainCtrl start');
 
-    $scope.purchase = Purchase;
+    $scope.purchase = $rootScope.registerGroup.persons = Purchase;
+    //
+    //$scope.$on('purchase', function (e, purchase) {
+    //  $scope.purchase = purchase;
+    //});
 
-    $scope.$on('purchase', function (e, purchase) {
-      $scope.purchase = purchase;
-    });
+    //$scope.registerGroup = new RegisterGroup();
 
     var stompClient = SocketHandler;
 
     $scope.addPerson = function(personName) {
-      $log.info('Add person');
-      stompClient.send('/app/addPerson', {}, JSON.stringify({ 'name': personName }));
+      SocketHandler.send('/app/addPerson', {}, personName);
       $scope.newPerson = '';
     };
 

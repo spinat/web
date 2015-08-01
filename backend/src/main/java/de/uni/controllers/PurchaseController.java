@@ -26,19 +26,20 @@ public class PurchaseController {
     PurchaseService purchaseService;
 
     @MessageMapping("/addPerson")
-    @SendTo("/topic/purchase")
-    public List<Person> addPerson(Person person) throws Exception {
-        LOG.info("Request to /addPerson. Person={}", person);
-        purchaseService.addPerson(person);
-        return purchaseService.getPurchase();
+    @SendTo("/topic/addPerson")
+    public Person addPerson(String personName) throws Exception {
+        LOG.info("Request to /addPerson. Person={}", personName);
+        Person person = purchaseService.addPerson(personName);
+        return person;
     }
 
     @MessageMapping("/deletePerson")
-    @SendTo("/topic/purchase")
-    public List<Person> deletePerson(String personName) throws Exception {
+    @SendTo("/topic/deletePerson")
+    public String deletePerson(String personName) throws Exception {
         LOG.info("Request to /deletePerson. Person={}", personName);
         purchaseService.deletePerson(personName);
-        return purchaseService.getPurchase();
+
+        return personName;
     }
 
     @MessageMapping("/addItem")
