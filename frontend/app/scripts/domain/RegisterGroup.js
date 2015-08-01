@@ -65,5 +65,17 @@ angular.module('frontendApp').factory('RegisterGroup', function($log, _, Person)
     person.addItem(item);
   };
 
+  RegisterGroup.prototype.deleteItem = function(item) {
+    var personName = item[0];
+    var itemUuid = item[1];
+    $log.info('item', item, personName, itemUuid);
+
+    var self = this;
+    var personIndex = self.findPersonIndexByName(personName);
+    var person = self.getPersonByIndex(personIndex);
+    person.deleteItem(itemUuid);
+  };
+
+
   return RegisterGroup;
 });

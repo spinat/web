@@ -52,11 +52,11 @@ public class PurchaseController {
     }
 
     @MessageMapping("/deleteItem/{uuid}")
-    @SendTo("/topic/purchase")
-    public List<Person> deleteItem(@DestinationVariable String uuid, String personName) {
+    @SendTo("/topic/deleteItem")
+    public String[] deleteItem(@DestinationVariable String uuid, String personName) {
         LOG.info("Request to /deleteItem/{itemId}");
         purchaseService.deleteItem(personName, uuid);
-        return purchaseService.getPurchase();
+        return new String[]{personName, uuid};
     }
 
     @MessageMapping(BUY)

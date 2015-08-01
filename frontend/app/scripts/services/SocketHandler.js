@@ -12,6 +12,7 @@ angular.module('frontendApp')
     stompClient = Stomp.over(socket); // jshint ignore:line
     stompClient.connect({}, function(frame) {
       $log.info('Connected: ' + frame);
+
       stompClient.subscribe('/topic/purchase', function(purchase){
         $rootScope.$apply(function () {
           $rootScope.$broadcast('purchase', JSON.parse(purchase.body));
@@ -30,9 +31,16 @@ angular.module('frontendApp')
         });
       });
 
+
       stompClient.subscribe('/topic/addItem', function(item){
         $rootScope.$apply(function () {
           $rootScope.registerGroup.addItem(JSON.parse(item.body));
+        });
+      });
+
+      stompClient.subscribe('/topic/deleteItem', function(item){
+        $rootScope.$apply(function () {
+          $rootScope.registerGroup.deleteItem(JSON.parse(item.body));
         });
       });
 
