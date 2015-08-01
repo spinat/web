@@ -1,10 +1,23 @@
 package de.uni.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 public class Item {
 
     private String name;
     private Double price;
     private String uuid;
+
+    @JsonManagedReference
+    private Person person;
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
     public String getUuid() {
         return uuid;

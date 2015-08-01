@@ -1,13 +1,17 @@
 package de.uni.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Person {
 
     private String name;
-    private List<Item> items = new ArrayList<>();
     private String uuid;
+
+    @JsonBackReference
+    private List<Item> items = new ArrayList<>();
 
     public String getUuid() {
         return uuid;

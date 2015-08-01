@@ -25,9 +25,14 @@ angular.module('frontendApp')
       });
 
       stompClient.subscribe('/topic/deletePerson', function(person){
-        $log.info('hiiiier', person.body);
         $rootScope.$apply(function () {
           $rootScope.registerGroup.deletePerson(person.body);
+        });
+      });
+
+      stompClient.subscribe('/topic/addItem', function(item){
+        $rootScope.$apply(function () {
+          $rootScope.registerGroup.addItem(JSON.parse(item.body));
         });
       });
 

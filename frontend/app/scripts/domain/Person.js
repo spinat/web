@@ -5,13 +5,12 @@ angular.module('frontendApp').factory('Person', function($log, _) {
   var Person = function(name, uuid) {
     this.name = name;
     this.uuid = uuid;
-    this.articles = [];
+    this.items = [];
   };
 
-  Person.prototype.addArticle = function(Article) {
+  Person.prototype.addItem = function(item) {
     var self = this;
-    self.articles.push(Article);
-    $log.info('Article added.', Article);
+    self.items.push(item);
   };
 
   Person.prototype.getName = function() {
@@ -19,15 +18,15 @@ angular.module('frontendApp').factory('Person', function($log, _) {
     return self.name;
   };
 
-  Person.prototype.getArticles = function() {
+  Person.prototype.getItems = function() {
     var self = this;
-    return self.articles;
+    return self.items;
   };
 
   Person.prototype.totalSum = function() {
     var self = this;
 
-    return _.reduce(self.getArticles(), function(memo, article) { return memo + article.price; }, 0);
+    return _.reduce(self.getItems(), function(memo, item) { return memo + item.price; }, 0);
   };
 
   return Person;

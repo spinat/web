@@ -43,11 +43,12 @@ public class PurchaseController {
     }
 
     @MessageMapping("/addItem")
-    @SendTo("/topic/purchase")
-    public List<Person> addItem(String personName) {
+    @SendTo("/topic/addItem")
+    public Item addItem(String personName) {
         LOG.info("Request to /addItem");
-        purchaseService.addItem(personName);
-        return purchaseService.getPurchase();
+        Item item = purchaseService.addItem(personName);
+
+        return item;
     }
 
     @MessageMapping("/deleteItem/{uuid}")

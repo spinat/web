@@ -56,11 +56,16 @@ public class PurchaseService {
         return Storage.getPurchase();
     }
 
-    public void addItem(String personName) {
+    public Item addItem(String personName) {
+
         Person person = storage.getPerson(personName);
+
         Item item = new Item();
         item.setUuid(UUID.randomUUID().toString());
+        item.setPerson(person);
+
         person.getItems().add(item);
+        return item;
     }
 
     public void deleteItem(String personName, String uuid) {

@@ -1,31 +1,42 @@
 'use strict';
 
-angular.module('frontendApp').factory('RegisterGroup', function($log, _) {
+angular.module('frontendApp').factory('RegisterGroup', function($log, _, Person) {
 
   var RegisterGroup = function() {
     this.persons = [];
   };
 
-
   RegisterGroup.prototype.addPerson = function(person) {
     $log.info('Add person to party', person);
     var self = this;
 
-    self.persons.push(person);
+    var p = new Person();
+    p.name = person.name;
+    p.uuid = person.uuid;
+    p.items = [];
+
+    self.persons.push(p);
   };
 
-  RegisterGroup.prototype.deletePerson = function(personName) {
+  RegisterGroup.prototype.findPersonIndexByName = function(personName) {
     var self = this;
 
     var index = _.findIndex(self.persons, function(person) {
       return person.name === personName;
     });
 
+    return index;
+  };
+
+  RegisterGroup.prototype.deletePerson = function(personName) {
+    var self = this;
+
+    var index = self.findPersonIndexByName(personName);
+
     self.persons.splice(index, 1);
 
     $log.info('Delete person from party', personName, self.persons);
   };
-
 
   RegisterGroup.prototype.getPersons = function() {
     var self = this;
@@ -35,7 +46,6 @@ angular.module('frontendApp').factory('RegisterGroup', function($log, _) {
   RegisterGroup.prototype.sumPrices = function() {
     var self = this;
 
-    //Weil wir funktionale Programmmierung lerenen möchten
     return _.chain(self.getPersons())
       .map(function(person) { return person.getArticles(); })
       .flatten()
@@ -46,6 +56,13 @@ angular.module('frontendApp').factory('RegisterGroup', function($log, _) {
   RegisterGroup.prototype.getPersonByIndex = function(index) {
     var self = this;
     return self.persons[index];
+  };
+
+  RegisterGroup.prototype.addItem = function(item) {
+    var self = this;
+    var index = self.findPersonIndexByName(item.person.name);
+    var person = self.getPersonByIndex(index);
+    person.addItem(item);
   };
 
   return RegisterGroup;
