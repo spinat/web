@@ -13,12 +13,6 @@ angular.module('frontendApp')
     stompClient.connect({}, function(frame) {
       $log.info('Connected: ' + frame);
 
-      stompClient.subscribe('/topic/purchase', function(purchase){
-        $rootScope.$apply(function () {
-          $rootScope.$broadcast('purchase', JSON.parse(purchase.body));
-        });
-      });
-
       stompClient.subscribe('/topic/addPerson', function(person){
         $rootScope.$apply(function () {
           $rootScope.registerGroup.addPerson(JSON.parse(person.body));
