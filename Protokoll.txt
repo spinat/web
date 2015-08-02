@@ -1,0 +1,23 @@
+30.07.
+Webinar zu Websockts: https://www.youtube.com/watch?v=mmIza3L64Ic
+Dokumentation von STOMP gelesen
+Erstellung einer kleinen Beispielanwendung, Spring MVC
+
+31.07.
+Angular-Anwendung erstellt. SockJS und Stomp eingebunden
+CORS konfiguriert
+Broker für CORS konfiguert
+Connection und Subscripts erstellt
+Formular für die Einkaufsliste erstellt
+Funktionalitäten zum Updaten (erstmal nur schreiben) des Einkaufs erstellt (Backend und Frontend)
+
+01.08.
+Inkrementelles Update beim liefern des Ergebnisses
+Prototypen eingebunden (tierisch geflucht über diese. Sind in unseren Augen unnötigt und verkomplizieren alles)
+manuelles Speichern des Datenbestandens erstellt.
+Automatisches laden der Daten beim Booten der Anwendung.
+
+02.08.
+Synchronisierte Arraylisten eingbunden
+Anwendung mit mehreren Geräten getestet
+Informationsbeschaffung über Redis und Sessions. Das nächste mal kein static final List benutzen, sondern Redis(IN-Memory Datenbank)
