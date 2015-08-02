@@ -1,5 +1,5 @@
 <div class="alert alert-success" role="alert">
-  <h3>Party ({{purchase.sumPrices()}} €)</h3>
+  <h3>Party ({{purchase.sumPrices() | number:2}} €)</h3>
   <form class="form-inline" role="form" ng-submit="addPerson(newPerson)">
     <div class="form-group">
       <label for="person">Neue Person</label>
@@ -19,7 +19,7 @@
   <div class="panel-heading clearfix">
     <h4 class="panel-title pull-left" style="padding-top: 7.5px;">{{person.name}}</h4>
     <div class="btn-group pull-right">
-      <span class="btn btn-primary btn-sm">{{person.totalSum()}} €</span>
+      <span class="btn btn-primary btn-sm">{{person.totalSum() | number:2}} €</span>
       <button class="btn btn-default btn-sm" data-ng-click="deletePerson(person.name)">## löschen</button>
     </div>
   </div>
