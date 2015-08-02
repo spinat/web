@@ -9,7 +9,6 @@ angular.module('frontendApp').factory('RegisterGroup', function($log, _, Person)
   RegisterGroup.prototype.import = function(purchase) {
     var persons = purchase[0];
     var items = purchase[1];
-    $log.info('Import', purchase, persons, items);
 
     var self = this;
 
@@ -29,8 +28,6 @@ angular.module('frontendApp').factory('RegisterGroup', function($log, _, Person)
         var person = self.getPersonByIndex(personIndex);
 
         person.addItem(item);
-
-        $log.info('items:', item, personName);
       });
   };
 

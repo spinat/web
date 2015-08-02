@@ -3,6 +3,7 @@ package de.uni.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Person {
@@ -11,7 +12,7 @@ public class Person {
     private String uuid;
 
     @JsonIgnore
-    private List<Item> items = new ArrayList<>();
+    private List<Item> items = Collections.synchronizedList(new ArrayList<Item>()) ;
 
     public String getUuid() {
         return uuid;
