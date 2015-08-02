@@ -2,6 +2,7 @@ package de.uni.controllers;
 
 import de.uni.domain.Item;
 import de.uni.domain.Person;
+import de.uni.services.FileService;
 import de.uni.services.PurchaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +25,9 @@ public class PurchaseController {
 
     @Autowired
     PurchaseService purchaseService;
+
+    @Autowired
+    FileService fileService;
 
     @MessageMapping("/addPerson")
     @SendTo("/topic/addPerson")
@@ -84,5 +89,11 @@ public class PurchaseController {
 
 
         return new Object[]{purchase, items};
+    }
+
+    @RequestMapping("/api/save")
+    public void save() throws IOException {
+        LOG.info("Request to /api/save.");
+        fileService.writeFile();
     }
 }

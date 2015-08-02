@@ -1,6 +1,5 @@
 <div class="alert alert-success" role="alert">
-  <h3>Party</h3>
-  <span>{{purchase.sumPrices()}} €</span>
+  <h3>Party ({{purchase.sumPrices()}} €)</h3>
   <form class="form-inline" role="form" ng-submit="addPerson(newPerson)">
     <div class="form-group">
       <label for="person">Neue Person</label>
@@ -8,7 +7,7 @@
     </div>
     <button class="btn btn-default" type="submit">Hinzufügen</button>
   </form>
-
+  <button class="btn btn-primary" ng-click="save()">Save</button>
 </div>
 
 

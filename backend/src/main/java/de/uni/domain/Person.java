@@ -1,6 +1,6 @@
 package de.uni.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ public class Person {
     private String name;
     private String uuid;
 
-    @JsonBackReference
+    @JsonIgnore
     private List<Item> items = new ArrayList<>();
 
     public String getUuid() {

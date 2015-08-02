@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('frontendApp')
-  .controller('MainCtrl', function ($scope, $log, Purchase, SocketHandler, $rootScope) {
+  .controller('MainCtrl', function ($scope, $log, Purchase, SocketHandler, $rootScope, PurchaseService) {
 
     $log.info('MainCtrl start', Purchase);
 
@@ -10,6 +10,11 @@ angular.module('frontendApp')
     $rootScope.registerGroup.import(Purchase);
 
     var stompClient = SocketHandler;
+
+    $scope.save = function() {
+      $log.info('Save');
+      PurchaseService.save();
+    };
 
     $scope.addPerson = function(personName) {
       SocketHandler.send('/app/addPerson', {}, personName);
@@ -32,7 +37,7 @@ angular.module('frontendApp')
     };
 
     $scope.editItem = function(person, itemUuid, itemName, price) {
-      var newItemName = itemName === null ? '' : itemName;
+      var newItemName = itemName === null ? '?' : itemName;
       var newPrice = price === null ? -1 : price;
 
       stompClient.send('/app/' + person.name + '/editItem/' + itemUuid + '/' + newItemName + '/' + newPrice, {}, {});

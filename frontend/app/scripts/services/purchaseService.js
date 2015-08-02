@@ -20,5 +20,20 @@ angular.module('frontendApp')
       return deferred.promise;
     };
 
+    service.save = function() {
+      $log.info('get all Purchase');
+
+      var deferred = $q.defer();
+      $http.get('http://localhost:8080/api/save')
+        .success(function(response) {
+          deferred.resolve(response);
+        })
+        .error(function(response) {
+          deferred.reject(response);
+        });
+
+      return deferred.promise;
+    };
+
     return service;
   });
